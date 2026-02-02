@@ -14,13 +14,19 @@ app = FastAPI(
 )
 
 # CORS Configuration (allow all origins for simplicity - restrict in production)
+# CORS Configuration - Allow both local and production
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",                   
+        "http://127.0.0.1:3000",                  
+        "https://hrms-lite-nine-phi.vercel.app",   # Production frontend                   
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # Initialize database on startup
 @app.on_event("startup")
